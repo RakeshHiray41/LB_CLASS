@@ -1,0 +1,141 @@
+
+//////////////////////////////////////////////////////////////
+//
+//  User Define Micros
+// 
+/////////////////////////////////////////////////////////////////
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+
+
+#include<iostream>
+using namespace std;
+//////////////////////////////////////////////////////////////
+//
+//  User Define Macros
+// 
+/////////////////////////////////////////////////////////////////
+
+#define MAXFILESIZE 100
+
+#define MAXINODE 5
+
+#define READ 1
+#define WRITE 2
+#define EXECUTE 4
+
+#define REGULARFILE 1
+#define SPECIALFILE 2
+
+#define STRAT 0
+#define CURRENT 1
+#define END 2
+
+
+
+//////////////////////////////////////////////////////////////
+//
+// Structure Name : BootBlock 
+// Description :    Holds informtion to boot the operationg system
+//
+/////////////////////////////////////////////////////////////////
+struct  BootBlock
+{
+  char Information[100];
+}bootobj;
+
+
+//////////////////////////////////////////////////////////////
+//
+// Structure Name : SuperBlock 
+// Description :    Holds informtion about the file system
+//
+/////////////////////////////////////////////////////////////////
+struct SuperBlock
+{
+   int TotalInodes;
+   int FreeInodes;
+};
+
+
+//////////////////////////////////////////////////////////////
+//
+// Structure Name : Inode 
+// Description :    Holds informtion about the file 
+//
+/////////////////////////////////////////////////////////////////
+ typedef struct Inode
+{
+  char FileName[50];
+  int InodeNumber;
+  int FileSize;
+  int ActualFileSize;
+  int ReferenceCount;
+  int Permission;
+  int LinkCount;
+  int FileType;
+  char *Buffer;
+  struct Inode *next;
+}INODE , *PINODE , **PPINODE;
+
+
+//////////////////////////////////////////////////////////////
+//
+// Structure Name : FileTable 
+// Description :    Holds informtion about the opened file 
+//
+/////////////////////////////////////////////////////////////////
+
+typedef struct FileTable
+{
+  int ReadOffSet;
+  int WriteOffSet;
+  int Count;
+  int Mode;
+  PINODE ptrinode;
+} FILETABLE, *PFILETABLE;
+
+//////////////////////////////////////////////////////////////
+//
+// Structure Name : UAREA 
+// Description :    Holds informtion about the process 
+//
+/////////////////////////////////////////////////////////////////
+
+struct UAREA
+{
+  char ProcessName[50];
+  PFILETABLE UFDT[MAXINODE];
+
+};
+
+///////////////////////////////////////////////////////////////
+//
+// Globol variable of objects used in the project
+/////////////////////////////////////////////////////////////////
+
+SuperBlock superobj;
+PINODE head =  NULL;
+UAREA  uareaboj;
+
+///////////////////////////////////////////////////////////////
+//
+//  Entry point function of project (main)
+//
+//////////////////////////////////////////////////////////////
+
+int main()
+{
+
+   strcpy(bootobj.Information ,"Boot Process of opertaing system done");
+
+   cout<<bootobj.Information<<"\n";
+  return 0;
+} 
+
+
+
+  

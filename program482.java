@@ -1,0 +1,47 @@
+import java.util.*;
+
+class StringX
+{
+    // private String Str;
+
+    // public StringX(String a)
+    // {
+    //     this.str = a;
+    // }
+
+    public String Replace(String str, char A, char B)
+    {
+        int i = 0;
+
+        char Arr[] = str.toCharArray();
+
+        for(i = 0 ; i < Arr.length ; i++)
+        {
+            if(Arr[i] == A)
+            {
+                Arr[i] = B;
+            }
+        }
+        String newstr = new String(Arr);
+        return newstr;
+    }
+}
+
+class program482
+{
+    public static void main(String a[])
+    {
+        Scanner sobj = new Scanner(System.in);
+
+        System.out.println("Enter the String : ");
+        String str = sobj.nextLine();
+
+        StringX strobj = new StringX();
+
+        String sret =  strobj.Replace(str,' ','_');
+
+
+        
+        System.out.println("Upated String is : "+sret);
+    }
+}

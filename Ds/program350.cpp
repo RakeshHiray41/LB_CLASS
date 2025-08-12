@@ -1,0 +1,226 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+typedef struct node NODE;
+typedef struct node * PNODE;
+typedef struct node ** PPNODE;
+
+class SinglyCLL
+{
+    private:
+        
+        PNODE first;
+        PNODE last;
+        int iCount;
+    
+    public:
+
+        SinglyCLL()
+        {
+            this->first = NULL;
+            this->last = NULL;
+            this->iCount = 0;
+
+            cout<<"Inside constructor\n";
+        }
+
+        void InsertFirst(int no)
+        {
+            PNODE newn = NULL;
+
+            newn = new NODE;
+
+            newn -> data = no;
+            newn -> next = NULL;
+
+            if((first == NULL) &&(last == NULL)) //if(icount == 0)
+            {
+                first = newn;
+                newn = first;
+                
+                last = first;
+
+            }
+            else
+            {
+                newn -> next = first;
+                first = newn;
+
+                last -> next = first;
+            }
+           
+            iCount++;
+        }
+
+        void InsertLast(int no)
+        {
+            PNODE newn = NULL;
+
+            newn = new NODE;
+
+            newn -> data = no;
+            newn -> next = NULL;
+
+            if((first == NULL) &&(last == NULL)) //if(icount == 0)
+            {
+                first = newn;
+                newn  = first;
+                
+                last -> next = first;
+
+            }
+            else
+            {
+                last -> next = newn;
+                last = newn;
+
+                last -> next = first;
+            }
+            
+            iCount++;
+        }
+
+        
+
+        void DeleteFirst()
+        {
+            if((first == NULL)&&(last == NULL))
+            {
+                return;
+            }
+            else if(first == last)
+            {
+                delete first;
+
+                first = NULL;
+                last = NULL;
+
+            }
+            else
+            {
+                first = first -> next;
+                delete last -> next;
+
+                last -> next = first;
+            }
+            iCount--;
+        }
+
+        void DeleteLast()
+        {
+            if((first == NULL)&&(last == NULL))
+            {
+                return;
+            }
+            else if(first == last)
+            {
+                delete first;
+
+                first = NULL;
+                last = NULL;
+
+            }
+            else
+            {
+                PNODE temp = NULL;
+
+                temp = first;
+
+                
+                while(temp -> next != last)
+                {
+                    temp = temp -> next;
+                }
+
+                delete last;
+                
+                last = temp;
+                last -> next = first;
+                
+                
+            }
+            iCount--;
+        }
+
+        void Display()
+        {
+            if(first == NULL && last == NULL)
+            {
+                return;
+            }
+            PNODE temp = first;
+
+            do
+            {
+                cout<<"|"<<temp->data<<" |-> ";
+                temp = temp -> next;
+                
+            } while (temp != last -> next);
+            cout<<"\n";
+        }
+        int Count()
+        {
+            return iCount;
+        }
+
+        void DeleteAtPos(int pos)
+        {
+            
+            
+        }
+
+        void InsertAtPos(int no,int pos)
+        {
+            
+        }
+        
+};
+
+int main()
+{
+    int iRet = 0;
+
+    SinglyCLL sobj;
+
+    sobj.InsertFirst(51);
+    sobj.InsertFirst(21);
+    sobj.InsertFirst(11);
+
+    sobj.InsertLast(101);
+    sobj.InsertLast(111);
+    sobj.InsertLast(121);
+
+    sobj.InsertAtPos(105,5);
+
+    iRet= sobj.Count();
+
+    cout<<"Number of elements are : "<<iRet<<"\n";
+
+    sobj.Display();
+
+    iRet= sobj.Count();
+
+    cout<<"Number of elements are : "<<iRet<<"\n";
+
+    sobj.DeleteFirst();
+
+    sobj.Display();
+    iRet= sobj.Count();
+
+    cout<<"Number of elements are : "<<iRet<<"\n";
+
+    sobj.DeleteLast();
+
+    sobj.Display();
+    iRet= sobj.Count();
+
+    cout<<"Number of elements are : "<<iRet<<"\n";
+
+    return 0;
+}

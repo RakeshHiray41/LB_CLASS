@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+
+typedef unsigned int UINT;
+
+UINT ChangeBit(UINT iNo)
+{
+    UINT iMask = 0xfffff7ff; //12th bit off 
+    UINT iResult = 0;
+
+    iResult = iNo & iMask;
+
+    return iResult;
+    
+}
+int main()
+{
+    UINT iValue = 0;
+    UINT iRet = 0;
+
+    cout<<"Enter Number :\n";
+    cin>>iValue;
+
+    iRet = ChangeBit(iValue);
+
+    cout<<"Updated number is : "<<iRet<<"\n";
+    
+    return 0;
+}
